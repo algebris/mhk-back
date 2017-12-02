@@ -1,4 +1,6 @@
-const requireAll = require('require-all');
+const requireAll = require('require-all'),
+  cfg = require('../config/config'),
+  passport = require('passport');
 
 let routes = requireAll({
   dirname: __dirname,
@@ -7,7 +9,7 @@ let routes = requireAll({
 });
 
 module.exports = app => {
-  app.get('/', (req, res) => res.json({status: 0, message: 'MHK API alive!'}));
-  app.use('/user', routes.userRouter);
-  app.use('/auth', routes.authRouter);
+  app.get(`/`, (req, res) => res.json({status: 0, message: 'MHK API alive!'}));
+  app.use(`${cfg.apiPrefix}/user`, routes.userRouter);
+  app.use(`${cfg.apiPrefix}/`, routes.authRouter);
 };

@@ -9,6 +9,7 @@ const express = require('express'),
   cors = require('cors');
 
 // console.log(require('util').inspect(auth, { showHidden: true, depth: null }));
+require('dotenv').config();
 require('./config/db');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,6 +18,15 @@ app.use(cors());
 
 app.use(auth.initialize());
 require('./routes')(app);
+
+app.use((err, req, res, next) => {
+  if(process.env.NODE_ENV == 'production') {
+    log.error(err.message);
+  } else {
+    log.error(err);
+  }
+  res.status(500).json({success:false, message:'Server error'});  
+});
 
 app.listen(process.env.SERVER_PORT || config.server.port);
 log.info(`App started on port`);

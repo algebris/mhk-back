@@ -2,53 +2,48 @@ const passport = require('passport'),
   config = require('../config/config'),
   User = require('../models/userModel'),
   passportJWT = require("passport-jwt"),
-  LocalStrategy = require('passport-local'),
+  LocalStrategy = require('passport-local').Strategy,
   JwtStrategy = require('passport-jwt').Strategy,
   ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const jwtOptions = {
   secretOrKey: config.auth.jwtSecret,
-  jwtFromRequest: ExtractJwt.fromHeader()
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT')
 };
 
-module.exports = () => {
-  const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
-    let user = User.findOne(payload.id, (err, user) => {
-      if(err) return done(err);
+const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
+  User.findOne(payload.id, (err, user) => {
+    if(err) return done(err);
+    if(user) {
+      done(null, user);
+    } else {
+      done(null, false);
+    }
+  });
+});
 
-      if(user) {
-        done(null, user);
-      } else {
-        done(null, false);
-      }
-    });
-  
-    // if(user) {
-    //   return done(null, {
-    //     id: user.id
-    //   });
-    // } else {
-    //   return done(new Error('User not found'), null);
-    // }
+const localStrategy = new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+  session: false
+}, (email, password, done) => {
+  User.findOne({email}, (err, user) => {
+    if(err) return done(err);
+    if(!user || !user.checkPassword(password)) return done(null, false, {message: 'User not found'});
+    return done(null, user);
+  });
+});
+
+const getPayload = user => ({
+    id: user.id,
+    email: user.email,
   });
 
-  const localStrategy = new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    session: false
-  }, (email, password, done) => {
-    User.findOne({email}, (err, user) => {
-      if(err) return done(err);
-      if(!user || user.checkPassword(password)) return done(null, false, {message:'User not found'});
-      return done(null, user);
-    })
-  });
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
-  passport.use(jwtStrategy);
-  passport.use(localStrategy);
-
-  return {
-    initialize: () => passport.initialize(),
-    authenticate: () => passport.authenticate('jwt', { session: false })
-  }
-};
+module.exports = () => ({
+  initialize: () => passport.initialize(),
+  authenticate: () => passport.authenticate('jwt', { session: false }),
+  payload: getPayload
+});

@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
+  storagePath: 'uploads/',
   db: process.env.MONGO_URI || 'mongodb://localhost:27017/mhk',
   apiPrefix: '/api/v1',
   server: {

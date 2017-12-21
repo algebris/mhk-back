@@ -1,6 +1,5 @@
 const requireAll = require('require-all'),
-  cfg = require('../config/config'),
-  passport = require('passport');
+  cfg = require('../config/config');
 
 let routes = requireAll({
   dirname: __dirname,

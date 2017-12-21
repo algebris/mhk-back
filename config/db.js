@@ -1,7 +1,7 @@
 const Mongoose = require('mongoose'),
   bunyan = require('bunyan'),
   Promise = require('bluebird'),
-  log = bunyan.createLogger({name: "MHK.config.db"}),
+  log = bunyan.createLogger({name: "MHK.db"}),
   config = require('./config');
 
 Mongoose.Promise = Promise;

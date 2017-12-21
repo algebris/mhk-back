@@ -1,12 +1,20 @@
 const mongoose = require('mongoose'),
+  validator = require('validator'),
   crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
-  displayName: String,
+  regHash: String,
   email: {
     type: String,
+    trim: true,
+    lowercase: true,
     required: true,
-    unique: true
+    unique: true,
+    validate: {
+      validator: validator.isEmail,
+      message: '{VALUE} is not a valid email',
+      isAsync: false
+    }
   },
   passwordHash: String,
   salt: String,

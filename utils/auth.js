@@ -11,11 +11,15 @@ const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT')
 };
 
+const getPayload = user => ({
+    email: user.email,
+  });
+
 const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
   User.findOne(payload.id, (err, user) => {
     if(err) return done(err);
     if(user) {
-      done(null, user);
+      done(null, getPayload(user));
     } else {
       done(null, false);
     }
@@ -30,20 +34,14 @@ const localStrategy = new LocalStrategy({
   User.findOne({email}, (err, user) => {
     if(err) return done(err);
     if(!user || !user.checkPassword(password)) return done(null, false, {message: 'User not found'});
-    return done(null, user);
+    return done(null, getPayload(user));
   });
 });
-
-const getPayload = user => ({
-    id: user.id,
-    email: user.email,
-  });
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-module.exports = () => ({
-  initialize: () => passport.initialize(),
-  authenticate: () => passport.authenticate('jwt', { session: false }),
-  payload: getPayload
-});
+module.exports = {
+  initialize: passport.initialize(),
+  authenticate: passport.authenticate('jwt', { session: false }),
+};

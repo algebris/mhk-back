@@ -1,4 +1,5 @@
 const express = require('express'),
+  _ = require('lodash'),
   config = require('./config/config'),
   Routes = require('./routes'),
   bodyParser = require('body-parser'),
@@ -25,7 +26,13 @@ app.use((err, req, res, next) => {
   } else {
     log.error(err.message);
   }
-  res.status(500).json({ success:false, message:'Server error' });  
+  let message = _.get(err, 'message', false);
+  
+  if(!message) {
+    message = 'Server error';
+  }
+
+  res.status(500).json({ success:false, message});
 });
 
 app.listen(process.env.SERVER_PORT || config.server.port);

@@ -1,21 +1,13 @@
-const express = require('express'),
+const _ = require('lodash'),
+  express = require('express'),
   cfg = require('../config/config'),
   User = require('../models/userModel'),
   auth = require('../utils/auth'),
   multer = require('multer'),
-  mailer = require('../utils/emailSender'),
+  mailerService = require('../services/mailer'),
   router = express.Router();
 
 const upload = multer({ dest: cfg.storagePath, limits: '100MB' });
-
-router.post('/', async (req, res, next) => {
-  const user = await User.create(req.body)
-    .catch(err => next(err));
-  
-  if(user) {
-    res.json({email:user.email});
-  }
-});
 
 router.post('/profile', auth.authenticate, upload.single('avatar'), (req, res, next) => {
   console.log(req.file, req.body, req.user);
@@ -23,9 +15,41 @@ router.post('/profile', auth.authenticate, upload.single('avatar'), (req, res, n
 });
 
 router.post('/signup', async (req, res, next) => {
-  const sent = await mailer.register()
-    .then(r => res.json(r))
-    .catch(err => next(err));
+  try {
+    const resend = _.get(req.query, 'resend', false),
+      email = _.get(req.body, 'email'),
+      user = await User.findOne({email:email});
+
+    if(!email)
+      return res.status(409).json({success:false, message:'Bad email'});
+
+    if(user && resend) {
+      const resend = await mailerService.resendConfirmation(user);
+      return res.json({success:true});
+    }
+
+    if(user)
+      return res.status(409).json({success: false, message:'Mail address exists'});
+
+    await mailerService.signUp(email);
+    
+    res.json({success: true});
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/signup', async (req, res, next) => {
+  const key = _.get(req.query, 'key');
+  
+  if(!key) next({message: 'Bad key'});
+
+  const user = await mailerService.checkSignup(key);
+  if(user)
+    res.json({success:true, message:'Signed up', email: user.email});
+  else
+    next({message: 'Bad key'});
+
 });
 
 module.exports = router;

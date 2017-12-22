@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
   },
   passwordHash: String,
   salt: String,
+  signupHash: String
 }, {
   timestamps: true
 });
@@ -47,5 +48,16 @@ UserSchema.methods.checkPassword = function (password) {
   if (!this.passwordHash) return false;
   return crypto.pbkdf2Sync(password, this.salt, 1, 128, 'sha1') == this.passwordHash;
 };
+
+UserSchema.virtual('signupKey')
+  .set(function(value) {
+    if(value)
+      this.signupHash = crypto.randomBytes(64).toString('hex');
+    else
+      this.signupHash = undefined;
+  })
+  .get(function() {
+    return this.signupHash;
+  });
 
 module.exports = mongoose.model('User', UserSchema);

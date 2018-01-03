@@ -1,0 +1,192 @@
+{
+	"info": {
+		"name": "MHK API v.1",
+		"_postman_id": "b3b4c631-0b12-b92e-3995-bce893a109f8",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"user@mail.com\",\n  \"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/user",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"user"
+					]
+				},
+				"description": "Create new user"
+			},
+			"response": []
+		},
+		{
+			"name": "/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"user@mail.com\",\n  \"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/login",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"login"
+					]
+				},
+				"description": "Login user"
+			},
+			"response": []
+		},
+		{
+			"name": "/auth",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAbWFpbC5jb20iLCJpYXQiOjE1MTIzMTE1NTh9.4SiWFFrcCysKj_j7tUhu4l9iFiJ89DYmBAsCLjJZurw"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/auth",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"auth"
+					]
+				},
+				"description": "Check whether authenicated service or not"
+			},
+			"response": []
+		},
+		{
+			"name": "/user/profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/user/profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"profile"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/user/signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"algebris@gmail.com\"}"
+				},
+				"url": {
+					"raw": "http://{{server}}{{port}}/{{prefix}}/user/signup",
+					"protocol": "http",
+					"host": [
+						"{{server}}{{port}}"
+					],
+					"path": [
+						"{{prefix}}",
+						"user",
+						"signup"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/user/signup?key={{key}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{server}}{{port}}/{{prefix}}/user/signup?key={{key}}",
+					"protocol": "http",
+					"host": [
+						"{{server}}{{port}}"
+					],
+					"path": [
+						"{{prefix}}",
+						"user",
+						"signup"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{key}}",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -15,7 +15,7 @@ const sendMail = async opts => {
   };
   
   if(!opts.subject || !opts.to || (!opts.html || opts.text))
-    return Promise.reject(`Fiels Subject, Text or HTLM shouldn't be empty`)
+    return Promise.reject(`Fields Subject, Text or HTLM shouldn't be empty`)
 
   return transport.sendMail(_.assign(options, opts));
 };

@@ -5,6 +5,7 @@ const _ = require('lodash'),
   auth = require('../utils/auth'),
   multer = require('multer'),
   mailerService = require('../services/mailer'),
+  validator = require('validator'),
   router = express.Router();
 
 const upload = multer({ dest: cfg.storagePath, limits: '100MB' });
@@ -16,12 +17,13 @@ router.post('/profile', auth.authenticate, upload.single('avatar'), (req, res, n
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const resend = _.get(req.query, 'resend', false),
-      email = _.get(req.body, 'email'),
-      user = await User.findOne({email:email});
+    const resend = _.get(req.query, 'resend', null),
+      email = _.get(req.body, 'email', null);
 
-    if(!email)
+    if(!validator.isEmail(email))
       return res.status(409).json({success:false, message:'Bad email'});
+    
+    const user = await User.findOne({email:email});
 
     if(user && resend) {
       const resend = await mailerService.resendConfirmation(user);
@@ -49,7 +51,6 @@ router.get('/signup', async (req, res, next) => {
     res.json({success:true, message:'Signed up', email: user.email});
   else
     next({message: 'Bad key'});
-
 });
 
 module.exports = router;

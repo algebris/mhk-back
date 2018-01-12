@@ -18,7 +18,11 @@ router.post('/profile', auth.authenticate, upload.single('avatar'), (req, res, n
 router.post('/signup', async (req, res, next) => {
   try {
     const resend = _.get(req.query, 'resend', null),
+      password = _.get(req.body, 'password', null),
       email = _.get(req.body, 'email', null);
+
+    if(!password)
+      return res.status(409).json({success:false, message:'Bad password'});
 
     if(!validator.isEmail(email))
       return res.status(409).json({success:false, message:'Bad email'});
@@ -33,7 +37,8 @@ router.post('/signup', async (req, res, next) => {
     if(user)
       return res.status(409).json({success: false, message:'Mail address exists'});
 
-    await mailerService.signUp(email);
+    await mailerService.signUp(email, password)
+      .catch(err => {throw new Error('Error sending email')});
     
     res.json({success: true});
   } catch (err) {

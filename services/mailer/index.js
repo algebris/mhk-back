@@ -3,12 +3,12 @@ const
   User = require('../../models/userModel'),
   sender = require('./sender');
 
-const signUp = async (email) => {
+const signUp = async (email, password) => {
   const found = await User.findOne({email});
   if(found)
     return Promise.reject('User exists');
   
-  const userModel = new User({email, signupKey: true});
+  const userModel = new User({email, signupKey: true, password});
   const user = await userModel.save();
 
   if(user)

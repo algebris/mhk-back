@@ -22,7 +22,7 @@ require('./routes')(app);
 
 app.use((err, req, res, next) => {
   if(process.env.NODE_ENV == 'development') {
-    console.error(err);
+    log.error(err);
   } else {
     log.error(err.message);
   }

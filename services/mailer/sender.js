@@ -4,7 +4,10 @@ const _ = require('lodash'),
   ejs = require('ejs'),
   nodeMailer = require('nodemailer'),
   directTransport = require('nodemailer-direct-transport'),
-  transport = nodeMailer.createTransport(directTransport({}));
+  stubTransport = require('nodemailer-stub-transport'),
+  transport = process.env.NODE_ENV == 'development' ?
+    nodeMailer.createTransport(stubTransport()) :
+    nodeMailer.createTransport(directTransport({}));
 
 const getTemplate = file =>
   fs.readFileSync(__dirname + `/templates/${file}`).toString();
@@ -17,7 +20,11 @@ const sendMail = async opts => {
   if(!opts.subject || !opts.to || (!opts.html || opts.text))
     return Promise.reject(`Fields Subject, Text or HTLM shouldn't be empty`)
 
-  return transport.sendMail(_.assign(options, opts));
+  return transport.sendMail(_.assign(options, opts), (err, info) => {
+    if(process.env.NODE_ENV == 'development') {
+      console.log(info.response.toString());
+    }
+  });
 };
 
 const signupLetter = async (email, hash) => {

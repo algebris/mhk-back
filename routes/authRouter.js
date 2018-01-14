@@ -1,8 +1,9 @@
 const express = require('express'),
   config = require('../config/config'),
-  auth = require('../utils/auth'),
+  auth = require('../services/auth/auth'),
   passport = require('passport'),
-  jwt = require('jsonwebtoken'),
+  jwt = require('jsonwebtoken');
+
   router = express.Router();
 
 router.post('/login', (req, res, next) => {
@@ -19,8 +20,19 @@ router.post('/login', (req, res, next) => {
 
 router.get('/auth', (req, res, next) => {
   passport.authenticate('jwt', (err, user) => {
-    return user ? res.json({success: true}) : res.status(401).json({success:false, message:'Unauthorized'});
+    return user ? 
+      res.json({success: true}) : 
+      res.status(401).json({success:false, message:'Unauthorized'});
   })(req, res, next);
 });
+
+router.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+
+router.get('/auth/vkontakte/callback',
+  passport.authenticate('vkontakte', {
+    successRedirect: '/',
+    failureRedirect: '/login'    
+  })
+);
 
 module.exports = router;

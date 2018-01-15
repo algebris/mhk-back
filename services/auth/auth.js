@@ -2,6 +2,7 @@ const passport = require('passport'),
   config = require('../../config/config'),
   User = require('../../models/userModel'),
   passportJWT = require("passport-jwt"),
+  validator = require('validator'),
   LocalStrategy = require('passport-local').Strategy,
   JwtStrategy = require('passport-jwt').Strategy,
   VKontakteStrategy = require('passport-vkontakte').Strategy,
@@ -39,16 +40,34 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
   });
 });
 
-const vkStrategy = new VKontakteStrategy({
-  clientID: 6331961,
-  clientSecret: 'vVHhicQ3iiN8hSgki9ZS',
-  callbackURL: 'http://mhk.onsib.ru/api/v1/auth/vkontakte/callback'
-},
-(accessToken, refreshToken, params, profile, done) => {
-  User.findOrCreate({ vkontakteId: profile.id })
+passport.serializeUser(function(user, done) {
+  done(null, user.email);
+});
+
+passport.deserializeUser(function(email, done) {
+  User.findOne({email})
     .then(function (user) { done(null, user); })
     .catch(done);
 });
+
+const vkStrategy = new VKontakteStrategy({
+  clientID: 6331961,
+  scope: ['email'],
+  profileFields: ['email', 'city'],
+  clientSecret: 'vVHhicQ3iiN8hSgki9ZS',
+  callbackURL: 'http://mhk.onsib.ru/api/v1/auth/vkontakte/callback'
+},
+async (accessToken, refreshToken, params, profile, done) => {
+    let user = await User.findOne({'socials.vk': profile.id});
+
+    if(!user && params.email) {
+      const VKUser = new User({email: params.email, 'socials': {vk:profile.id}});
+      VKUser.save();
+      console.log(VKUser);
+    }
+    done(null, user);
+  }
+);
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);

@@ -20,13 +20,19 @@ router.post('/login', (req, res, next) => {
 
 router.get('/auth', (req, res, next) => {
   passport.authenticate('jwt', (err, user) => {
+    if(req.query.refresh) {
+      const token = jwt.sign({email:user.email}, config.auth.jwtSecret);
+      return res.json(token);
+    }
     return user ? 
       res.json({success: true}) : 
       res.status(401).json({success:false, message:'Unauthorized'});
   })(req, res, next);
 });
 
-router.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+router.get('/auth/vkontakte', 
+  passport.authenticate('vkontakte', {display: 'mobile', scope: ['email']})
+);
 
 router.get('/auth/vkontakte/callback',
   passport.authenticate('vkontakte', {

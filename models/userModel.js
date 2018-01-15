@@ -18,7 +18,8 @@ const UserSchema = new mongoose.Schema({
   },
   passwordHash: String,
   salt: String,
-  signupHash: String
+  signupHash: String,
+  socials: {type: mongoose.Schema.Types.Mixed, default: {}}
 }, {
   timestamps: true
 });

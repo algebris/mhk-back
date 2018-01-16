@@ -10,6 +10,15 @@ module.exports = {
     port: 8080
   },
   auth: {
-    jwtSecret: 'oefjerijeprfijerpfoijerpf'
+    strategies: ['local', 'jwt', 'vkontakte', 'facebook'],
+    jwtSecret: process.env.JWT_SECRET || '',
+    fb: {
+      id: process.env.FB_ID || '',
+      secret: process.env.FB_SECRET || '',
+    },
+    vk: {
+      id: process.env.VK_ID || '',
+      secret: process.env.VK_SECRET || '',
+    }
   }
 };

@@ -1,6 +1,6 @@
 const express = require('express'),
   config = require('../config/config'),
-  auth = require('../services/auth/auth'),
+  auth = require('../services/auth'),
   passport = require('passport'),
   jwt = require('jsonwebtoken');
 
@@ -29,16 +29,5 @@ router.get('/auth', (req, res, next) => {
       res.status(401).json({success:false, message:'Unauthorized'});
   })(req, res, next);
 });
-
-router.get('/auth/vkontakte', 
-  passport.authenticate('vkontakte', {display: 'mobile', scope: ['email']})
-);
-
-router.get('/auth/vkontakte/callback',
-  passport.authenticate('vkontakte', {
-    successRedirect: '/',
-    failureRedirect: '/login'    
-  })
-);
 
 module.exports = router;

@@ -1,8 +1,9 @@
 const _ = require('lodash'),
   express = require('express'),
+  passport = require('passport'),
   cfg = require('../config/config'),
   User = require('../models/userModel'),
-  auth = require('../services/auth/auth'),
+  auth = require('../services/auth'),
   multer = require('multer'),
   mailerService = require('../services/mailer'),
   validator = require('validator'),
@@ -10,9 +11,11 @@ const _ = require('lodash'),
 
 const upload = multer({ dest: cfg.storagePath, limits: '100MB' });
 
-router.post('/profile', auth.authenticate, upload.single('avatar'), (req, res, next) => {
-  console.log(req.file, req.body, req.user);
-  next(null)
+router.post('/profile', 
+  passport.authenticate('jwt', { session: false }), 
+  upload.single('avatar'), (req, res, next) => {
+    console.log(req.file, req.body, req.user);
+    next(null)
 });
 
 router.post('/signup', async (req, res, next) => {

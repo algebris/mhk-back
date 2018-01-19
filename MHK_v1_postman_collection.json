@@ -227,6 +227,70 @@
 				"description": "/user/password"
 			},
 			"response": []
+		},
+		{
+			"name": "/user/password/restore",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\": \"user@mail.com\"}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/password/request",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"user",
+						"password",
+						"request"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/user/password/update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"user@mail.com\",\n\t\"key\": \"\",\n\t\"password\": \"\"\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/password/update",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"user",
+						"password",
+						"update"
+					]
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }

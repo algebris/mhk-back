@@ -1,6 +1,7 @@
 const 
   config = require('../../config/config'),
   User = require('../../models/userModel'),
+  shortid = require('shortid'),
   sender = require('./sender');
 
 const signUp = async (email, password) => {
@@ -26,6 +27,13 @@ const checkSignup = async signupKey => {
     return null;
 };
 
+const restorePassword = async email => {
+  if(!email) return false;
+  const hash = shortid.generate();
+  const result = await User.update({email}, { $set: { passwordRestoreHash: hash }});
+  return sender.restorePassword(email, hash);
+};
+
 const resendConfirmation = async user => {
   if(!user) return false;
 
@@ -39,4 +47,4 @@ const resendConfirmation = async user => {
   return sender.signupLetter(user.email, user.signupHash);
 };
 
-module.exports = {signUp, resendConfirmation, checkSignup};
+module.exports = {signUp, resendConfirmation, checkSignup, restorePassword};

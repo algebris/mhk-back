@@ -4,7 +4,7 @@ const _ = require('lodash'),
   User = require('../models/userModel'),
   auth = require('../services/auth'),
   multer = require('multer'),
-  errors = require('../services/auth'),
+  errors = require('../services/errors'),
   mailerService = require('../services/mailer'),
   validator = require('validator'),
   passport = require('passport'),
@@ -13,16 +13,15 @@ const _ = require('lodash'),
 
 const upload = multer({ dest: cfg.storagePath, limits: '100MB' });
 
-router.post('/profile', 
-  auth.jwt,
-  upload.single('avatar'), (req, res, next) => {
-    console.log(req.file, req.body, req.user);
-    next(null)
-});
+// router.post('/profile', 
+//   upload.single('avatar'), (req, res, next) => {
+//     console.log(req.file, req.body, req.user);
+//     next(null)
+// });
 
 router.patch('/password', passport.authenticate('jwt', {session: false}), async (req, res, next) => {
   const email = req.user.email;
-  console.log(email);
+
   if(email && req.body.password) {
     let Account = await User.findOne({email});
     if(Account) {
@@ -31,6 +30,37 @@ router.patch('/password', passport.authenticate('jwt', {session: false}), async 
     };
     res.json({success: true});
   }
+});
+
+router.post('/password/request', async (req, res, next) => {
+  if(!req.body.email || !validator.isEmail(req.body.email)) {
+    return next(errors.badRequest('Invalid Email'));
+  }
+  try {
+    await mailerService.restorePassword(req.body.email);
+    res.json({success:true});
+  } catch(e) {
+    console.log(e);
+    next(e);
+  }
+});
+
+router.post('/password/update', async (req, res, next) => {
+  if(!req.body.password && !req.body.email && !req.body.key) {
+    return next(errors.badRequest());
+  }
+  const user = await User.findOne({email:req.body.email, passwordRestoreHash:req.body.key});
+  console.log({email:req.body.email, passwordRestoreHash:req.body.key}, user);
+  if(!user) 
+    return next(errors.badRequest());
+  
+  user.password = req.body.password;
+  user.passwordRestoreHash = undefined;
+
+  const result = await user.save();
+  console.log(result);
+  
+  res.json({success:true});
 });
 
 router.post('/signup', async (req, res, next) => {

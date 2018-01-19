@@ -42,7 +42,23 @@ const signupLetter = async (email, hash) => {
   return sendMail(opts);
 };
 
+const restorePassword = async(email, hash) => {
+  const template = getTemplate('password_restore.html'),
+    data = {
+      siteUrl: `${config.siteUrl}/user/password_restore?key=${hash}`,
+      emailFrom: config.emailFrom
+    },
+    opts = {
+      to: email,
+      subject: 'MHK password restoration notice',
+      html: ejs.render(template, data)
+    };
+
+  return sendMail(opts);
+};
+
 module.exports = {
   sendMail,
-  signupLetter
+  signupLetter,
+  restorePassword
 };

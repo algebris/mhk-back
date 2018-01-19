@@ -192,6 +192,41 @@
 				"description": null
 			},
 			"response": []
+		},
+		{
+			"name": "/user/password",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"password\": \"\"\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/password",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"user",
+						"password"
+					]
+				},
+				"description": "/user/password"
+			},
+			"response": []
 		}
 	]
 }

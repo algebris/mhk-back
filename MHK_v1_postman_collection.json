@@ -229,7 +229,7 @@
 			"response": []
 		},
 		{
-			"name": "/user/password/restore",
+			"name": "/user/password/request",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -286,6 +286,68 @@
 						"user",
 						"password",
 						"update"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/auth/fb",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"token\":\"\"}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/auth/fb",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"auth",
+						"fb"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/auth/vk",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"token\":\"\", \"email\":\"\"}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/auth/vk",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"auth",
+						"vk"
 					]
 				},
 				"description": ""

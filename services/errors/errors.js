@@ -54,11 +54,20 @@ module.exports.endpointNotFoundError = function endpointNotFoundError() {
   );
 };
 
-module.exports.unauthorized = function unauthorized(message, originalMessage) {
+module.exports.forbidden = function forbidden(message, originalMessage) {
   return new ErrorModel(
     HTTPStatus.FORBIDDEN, 
     'error.msg.unauthorized.to.access.resource', 
     message || 'Forbidden', 
+    originalMessage
+  );
+};
+
+module.exports.unauthorized = function unauthorized(message, originalMessage) {
+  return new ErrorModel(
+    HTTPStatus.UNAUTHORIZED, 
+    'error.msg.unauthorized.to.access.resource', 
+    message || 'Unauthorized', 
     originalMessage
   );
 };

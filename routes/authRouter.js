@@ -2,6 +2,7 @@ const express = require('express'),
   config = require('../config/config'),
   auth = require('../services/auth'),
   passport = require('passport'),
+  errors = require('../services/errors'),
   jwt = require('jsonwebtoken');
 
   router = express.Router();
@@ -26,7 +27,7 @@ router.get('/auth', (req, res, next) => {
     }
     return user ? 
       res.json({success: true}) : 
-      res.status(401).json({success:false, message:'Unauthorized'});
+      next(errors.unauthorized());
   })(req, res, next);
 });
 

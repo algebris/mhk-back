@@ -7,7 +7,7 @@ module.exports = {
   db: process.env.MONGO_URI || 'mongodb://localhost:27017/mhk',
   apiPrefix: '/api/v1',
   server: {
-    port: 8080
+    port: process.env.SERVER_PORT || 8080
   },
   auth: {
     strategies: ['local', 'jwt', 'vkontakte', 'facebook'],

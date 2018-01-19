@@ -1,21 +1,36 @@
 const _ = require('lodash'),
   express = require('express'),
-  passport = require('passport'),
   cfg = require('../config/config'),
   User = require('../models/userModel'),
   auth = require('../services/auth'),
   multer = require('multer'),
+  errors = require('../services/auth'),
   mailerService = require('../services/mailer'),
   validator = require('validator'),
+  passport = require('passport'),
+  jwt = require('jsonwebtoken'),
   router = express.Router();
 
 const upload = multer({ dest: cfg.storagePath, limits: '100MB' });
 
 router.post('/profile', 
-  passport.authenticate('jwt', { session: false }), 
+  auth.jwt,
   upload.single('avatar'), (req, res, next) => {
     console.log(req.file, req.body, req.user);
     next(null)
+});
+
+router.patch('/password', passport.authenticate('jwt', {session: false}), async (req, res, next) => {
+  const email = req.user.email;
+  console.log(email);
+  if(email && req.body.password) {
+    let Account = await User.findOne({email});
+    if(Account) {
+      Account.password = req.body.password;
+      Account.save();
+    };
+    res.json({success: true});
+  }
 });
 
 router.post('/signup', async (req, res, next) => {

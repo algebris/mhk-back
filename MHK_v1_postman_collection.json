@@ -1,47 +1,36 @@
 {
-	"variables": [],
 	"info": {
 		"name": "MHK API v.1",
 		"_postman_id": "b3b4c631-0b12-b92e-3995-bce893a109f8",
 		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "/user",
-			"request": {
-				"url": "http://{{server}}:{{port}}/{{prefix}}/user",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"email\": \"user@gmail.com\",\n\t\"password\": \"\"\n}"
-				},
-				"description": "Create new user"
-			},
-			"response": []
-		},
-		{
 			"name": "/login",
 			"request": {
-				"url": "http://{{server}}:{{port}}/{{prefix}}/login",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"user@gmail.com\",\n\t\"password\": \"\"\n}"
+					"raw": "{\n  \"email\": \"user@mail.com\",\n  \"password\": \"\"\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/login",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"login"
+					]
 				},
 				"description": "Login user"
 			},
@@ -50,16 +39,26 @@
 		{
 			"name": "/auth",
 			"request": {
-				"url": "http://{{server}}:{{port}}/{{prefix}}/auth",
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAbWFpbC5jb20iLCJpYXQiOjE1MTIzMTE1NTh9.4SiWFFrcCysKj_j7tUhu4l9iFiJ89DYmBAsCLjJZurw",
-						"description": ""
+						"value": "JWT {{jwt}}"
 					}
 				],
 				"body": {},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/auth",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"auth"
+					]
+				},
 				"description": "Check whether authenicated service or not"
 			},
 			"response": []
@@ -67,6 +66,14 @@
 		{
 			"name": "/auth?refresh=true",
 			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {},
 				"url": {
 					"raw": "http://{{server}}:{{port}}/{{prefix}}/auth?refresh=true",
 					"protocol": "http",
@@ -82,21 +89,10 @@
 						{
 							"key": "refresh",
 							"value": "true",
-							"equals": true,
-							"description": ""
+							"equals": true
 						}
-					],
-					"variable": []
+					]
 				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAbWFpbC5jb20iLCJpYXQiOjE1MTIzMTE1NTh9.4SiWFFrcCysKj_j7tUhu4l9iFiJ89DYmBAsCLjJZurw",
-						"description": ""
-					}
-				],
-				"body": {},
 				"description": "Refresh token"
 			},
 			"response": []
@@ -104,43 +100,64 @@
 		{
 			"name": "/user/profile",
 			"request": {
-				"url": "http://{{server}}:{{port}}/{{prefix}}/user/profile",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					},
 					{
 						"key": "Authorization",
-						"value": "JWT {{jwt}}",
-						"description": ""
+						"value": "JWT {{jwt}}"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"\"\n}"
+					"raw": "{\n\t\"name\": \"\"\n}"
 				},
-				"description": null
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/profile",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"user",
+						"profile"
+					]
+				},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "/user/signup",
 			"request": {
-				"url": "http://{{server}}:{{port}}/{{prefix}}/user/signup",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\"email\":\"user@gmail.com\", \"password\": \"\"}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/signup",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"user",
+						"signup"
+					]
 				},
 				"description": null
 			},
@@ -149,6 +166,9 @@
 		{
 			"name": "/user/signup?key={{key}}",
 			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"url": {
 					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/signup?key={{key}}",
 					"protocol": "http",
@@ -165,27 +185,11 @@
 						{
 							"key": "key",
 							"value": "{{key}}",
-							"equals": true,
-							"description": ""
+							"equals": true
 						}
-					],
-					"variable": []
+					]
 				},
-				"method": "GET",
-				"header": [],
-				"body": {},
 				"description": null
-			},
-			"response": []
-		},
-		{
-			"name": "/auth/vkontakte",
-			"request": {
-				"url": "http://{{server}}:{{port}}/{{prefix}}/auth/vkontakte",
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": "VK login"
 			},
 			"response": []
 		}

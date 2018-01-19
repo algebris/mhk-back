@@ -11,8 +11,8 @@ const jwtOptions = {
 };
 
 const jwtStrategy = new JwtStrategy(jwtOptions, (payload, done) => {
-  User.findOne(payload.id, (err, user) => {
-    if(err) return done(err);
+  User.findOne({email:payload.email}, (err, user) => {
+    if(err) return done(err, false);
     if(user) {
       done(null, common.getPayload(user));
     } else {

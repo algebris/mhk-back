@@ -1,6 +1,7 @@
 const passport = require('passport'),
   requireAll = require('require-all'),
   config = require(`${APP_DIR}/config/config`),
+  errors = require(`${APP_DIR}/services/errors`),
   User = require(`${APP_DIR}/models/userModel`);
 
 const strategies = requireAll({
@@ -18,4 +19,13 @@ passport.deserializeUser(function(email, done) {
     .catch(done);
 });
 
-module.exports = { strategies };
+const jwt = (req, res, next) => {
+  passport.authenticate('jwt', {session: false}, (err, user, info, status) => {
+    if(!user && info instanceof Error)
+      next(info);
+    else
+      next(null, user);
+  })(req, res, next);
+};
+
+module.exports = { strategies, jwt };

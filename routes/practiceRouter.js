@@ -7,7 +7,7 @@ const express = require('express'),
   User = require('../models/userModel'),
   Practice = require('../models/practiceModel')
 
-router.post('/kirtan', (req, res, next) => {
+router.post('/meditation', (req, res, next) => {
   passport.authenticate('jwt', async (err, user) => {
     if(!user) {
       return next(errors.forbidden());
@@ -22,7 +22,7 @@ router.post('/kirtan', (req, res, next) => {
       return next(errors.badRequest('User unknown'));
     }
 
-    let practice = new Practice({user: user._id, practice: 'kirtan', time: req.body.time});
+    let practice = new Practice({user: user._id, practice: 'meditation', time: req.body.time});
     practice.save()
       .then(r => {
         res.json({success: true});
@@ -31,7 +31,7 @@ router.post('/kirtan', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/kirtan', (req, res, next) => {
+router.get('/meditation', (req, res, next) => {
   passport.authenticate('jwt', async (err, user) => {
     if(!user) {
       return next(errors.forbidden());

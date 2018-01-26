@@ -17,7 +17,7 @@ router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if(err) next(err);
     if(!user) {
-      res.status(401).json({success:false, message:'Invalid credentials'});
+      return next(errors.forbidden());
     } else {
       const token = jwt.sign({email:user.email}, config.auth.jwtSecret);
       res.json(token);

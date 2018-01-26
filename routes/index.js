@@ -17,4 +17,7 @@ module.exports = app => {
   
   if(cfg.auth.strategies.indexOf('facebook') !== -1)
     app.use(`${cfg.apiPrefix}/auth/facebook`, routes.facebook);
+
+  app.use(`${cfg.apiPrefix}/`, routes.practice);
+
 };

@@ -50,7 +50,6 @@ router.post('/password/update', async (req, res, next) => {
     return next(errors.badRequest());
   }
   const user = await User.findOne({email:req.body.email, passwordRestoreHash:req.body.key});
-  console.log({email:req.body.email, passwordRestoreHash:req.body.key}, user);
   if(!user) 
     return next(errors.badRequest());
   

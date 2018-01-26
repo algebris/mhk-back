@@ -113,7 +113,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"\"\n}"
+					"raw": "{\n  \"name\": \"\"\n}"
 				},
 				"url": {
 					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/profile",
@@ -128,7 +128,7 @@
 						"profile"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -209,7 +209,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"password\": \"\"\n}"
+					"raw": "{\n  \"password\": \"\"\n}"
 				},
 				"url": {
 					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/password",
@@ -256,7 +256,7 @@
 						"request"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -272,7 +272,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"user@mail.com\",\n\t\"key\": \"\",\n\t\"password\": \"\"\n}"
+					"raw": "{\n  \"email\": \"user@mail.com\",\n  \"key\": \"\",\n  \"password\": \"\"\n}"
 				},
 				"url": {
 					"raw": "http://{{server}}:{{port}}/{{prefix}}/user/password/update",
@@ -288,7 +288,7 @@
 						"update"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -319,7 +319,7 @@
 						"fb"
 					]
 				},
-				"description": ""
+				"description": null
 			},
 			"response": []
 		},
@@ -350,7 +350,87 @@
 						"vk"
 					]
 				},
-				"description": ""
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "/kirtan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"time\": 123123\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/kirtan",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"kirtan"
+					]
+				},
+				"description": "Kirtan timer"
+			},
+			"response": []
+		},
+		{
+			"name": "/kirtan",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"time\": 123123\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/kirtan?limit=1&offset=1",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"kirtan"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1",
+							"equals": true
+						},
+						{
+							"key": "offset",
+							"value": "1",
+							"equals": true
+						}
+					]
+				},
+				"description": "Kirtan timer"
 			},
 			"response": []
 		}

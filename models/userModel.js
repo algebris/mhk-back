@@ -20,7 +20,8 @@ const UserSchema = new mongoose.Schema({
   salt: String,
   signupHash: String,
   passwordRestoreHash: String,
-  socials: {type: mongoose.Schema.Types.Mixed, default: {}}
+  socials: {type: mongoose.Schema.Types.Mixed, default: {}},
+  practice: [{type: mongoose.Schema.Types.ObjectId, ref: 'Practice'}]
 }, {
   timestamps: true
 });

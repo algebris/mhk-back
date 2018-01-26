@@ -46,13 +46,13 @@ router.get('/meditation', (req, res, next) => {
       condition.offset = parseInt(req.query.offset, 10) || 0;
     }
 
-    user = await User.find({email: user.email});
+    user = await User.findOne({email: user.email});
 
     if(!user) {
       return next(errors.badRequest('User unknown'));
     }
 
-    let practice = await Practice.find({}, {_id: 0, time:1, created:1})
+    let practice = await Practice.find({user: user._id, practice: 'meditation'}, {_id: 0, time:1, created:1})
       .limit(condition.limit)
       .skip(condition.offset)
       .catch(err => next(err));

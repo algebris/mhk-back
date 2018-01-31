@@ -12,7 +12,7 @@ const PracticeSchema = new mongoose.Schema({
     required: true,
     enum: ['kirtan', 'meditation']
   },
-  time: {
+  value: {
     type: Number,
     required: true,
     validate: {
@@ -20,11 +20,13 @@ const PracticeSchema = new mongoose.Schema({
       message: '{VALUE} is not integer'
     }
   },
-  created: {
+  startedAt: {
     type: Date,
     required: true,
     default: Date.now 
   }
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Practice', PracticeSchema);

@@ -370,7 +370,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"time\": 123123\n}"
+					"raw": "[\n{\n  \"value\": \"123\",\n  \"startedAt\": \"2018-01-30T12:49:40.268Z\"\n},\n{\n  \"value\": \"234\",\n  \"startedAt\": \"2018-01-30T12:30:40.268Z\"\n}\n]"
 				},
 				"url": {
 					"raw": "http://{{server}}:{{port}}/{{prefix}}/meditation",

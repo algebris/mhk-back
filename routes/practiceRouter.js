@@ -114,4 +114,70 @@ router.get('/meditation', (req, res, next) => {
   })(req, res, next);
 });
 
+router.post('/kirtan', (req, res, next) => {
+  passport.authenticate('jwt', async (err, user) => {
+    let data = [];
+    if(!user) {
+      return next(errors.forbidden());
+    }
+    if(!_.isArray(req.body)) {
+      if(_.keys(TIMER_MODEL).every(k => k in req.body)) {
+        data = [req.body];
+      } else {
+        return next(errors.badRequest('Bad data'));
+      }
+    } else
+      data = req.body
+
+    data = filterTimerData(data);
+
+    user = await User.findOne({email: user.email});
+    if(!user) {
+      return next(errors.badRequest('User unknown'));
+    }
+
+    data = checkTimeBounds(data, user);
+
+    const extendObj = {user: user._id, practice: 'kirtan'};
+    data = _.map(data, item => _.assignIn(item, extendObj));
+    
+    await Practice.insertMany(data);
+
+    res.json(_.chain(data).map(obj => _.pick(obj, ['value', 'startedAt'])));
+
+  })(req, res, next);
+});
+
+router.get('/kirtan', (req, res, next) => {
+  passport.authenticate('jwt', async (err, user) => {
+    if(!user) {
+      return next(errors.forbidden());
+    }
+    let condition = {};
+    
+    if(req.query.limit && validator.isInt(req.query.limit)) {
+      condition.limit = parseInt(req.query.limit, 10) || 0;
+    }
+    
+    if(req.query.offset && validator.isInt(req.query.offset)) {
+      condition.offset = parseInt(req.query.offset, 10) || 0;
+    }
+
+    user = await User.findOne({email: user.email});
+
+    if(!user) {
+      return next(errors.badRequest('User unknown'));
+    }
+
+    let practice = await Practice.find({user: user._id, practice: 'kirtan'}, {_id: 0, value:1, startedAt:1})
+      .limit(condition.limit)
+      .skip(condition.offset)
+      .catch(err => next(err));
+      
+      res.json(practice);
+
+  })(req, res, next);
+});
+
+
 module.exports = router;

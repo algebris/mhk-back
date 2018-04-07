@@ -1,8 +1,7 @@
 {
 	"info": {
-		"name": "MHK API v.1",
 		"_postman_id": "b3b4c631-0b12-b92e-3995-bce893a109f8",
-		"description": "",
+		"name": "MHK API v.1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -88,8 +87,7 @@
 					"query": [
 						{
 							"key": "refresh",
-							"value": "true",
-							"equals": true
+							"value": "true"
 						}
 					]
 				},
@@ -127,8 +125,7 @@
 						"user",
 						"profile"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -158,8 +155,7 @@
 						"user",
 						"signup"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -184,12 +180,10 @@
 					"query": [
 						{
 							"key": "key",
-							"value": "{{key}}",
-							"equals": true
+							"value": "{{key}}"
 						}
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -255,8 +249,7 @@
 						"password",
 						"request"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -287,8 +280,7 @@
 						"password",
 						"update"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -318,8 +310,7 @@
 						"auth",
 						"fb"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -349,8 +340,7 @@
 						"auth",
 						"vk"
 					]
-				},
-				"description": null
+				}
 			},
 			"response": []
 		},
@@ -420,17 +410,217 @@
 					"query": [
 						{
 							"key": "limit",
-							"value": "0",
-							"equals": true
+							"value": "0"
 						},
 						{
 							"key": "offset",
-							"value": "0",
-							"equals": true
+							"value": "0"
 						}
 					]
 				},
 				"description": "Meditation timer"
+			},
+			"response": []
+		},
+		{
+			"name": "/kirtan",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n  \"value\": \"123\",\n  \"startedAt\": \"2018-01-30T12:49:40.268Z\"\n},\n{\n  \"value\": \"234\",\n  \"startedAt\": \"2018-01-30T12:30:40.268Z\"\n}\n]"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/kirtan",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"kirtan"
+					]
+				},
+				"description": "Kirtan timer"
+			},
+			"response": []
+		},
+		{
+			"name": "/kirtan",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"time\": 123123\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/kirtan?limit=0&offset=0",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"kirtan"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "0"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				},
+				"description": "Kirtan timer"
+			},
+			"response": []
+		},
+		{
+			"name": "/task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"value": "",
+							"description": "optional",
+							"type": "file"
+						},
+						{
+							"key": "title",
+							"value": "A new task",
+							"description": "mandatory",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Formatted input",
+							"description": "mandatory",
+							"type": "text"
+						},
+						{
+							"key": "expired_at",
+							"value": "2018-05-01T15:05:52.135Z",
+							"description": "optional",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/task",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"task"
+					]
+				},
+				"description": "Create a new Tasks"
+			},
+			"response": []
+		},
+		{
+			"name": "/task",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"value": "",
+							"description": "optional",
+							"type": "file"
+						},
+						{
+							"key": "title",
+							"value": "A new task",
+							"description": "mandatory",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Formatted input",
+							"description": "mandatory",
+							"type": "text"
+						},
+						{
+							"key": "end_date",
+							"value": "2018-04-05T02:05:52.135Z",
+							"description": "optional",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/task?type=all&offset=0&count=10",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"task"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "all"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "count",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Tasks"
 			},
 			"response": []
 		}

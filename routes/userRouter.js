@@ -1,25 +1,15 @@
 const _ = require('lodash'),
   express = require('express'),
-  cfg = require('../config/config'),
   User = require('../models/userModel'),
-  auth = require('../services/auth'),
-  multer = require('multer'),
   errors = require('../services/errors'),
   mailerService = require('../services/mailer'),
   validator = require('validator'),
   passport = require('passport'),
-  jwt = require('jsonwebtoken'),
+  bunyan = require('bunyan'),
+  log = bunyan.createLogger({name: 'MHK.userRouter'}),
   router = express.Router();
 
-const upload = multer({ dest: cfg.storagePath, limits: '100MB' });
-
-// router.post('/profile', 
-//   upload.single('avatar'), (req, res, next) => {
-//     console.log(req.file, req.body, req.user);
-//     next(null)
-// });
-
-router.patch('/password', passport.authenticate('jwt', {session: false}), async (req, res, next) => {
+router.patch('/password', passport.authenticate('jwt', {session: false}), async (req, res) => {
   const email = req.user.email;
 
   if(email && req.body.password) {
@@ -27,7 +17,7 @@ router.patch('/password', passport.authenticate('jwt', {session: false}), async 
     if(Account) {
       Account.password = req.body.password;
       Account.save();
-    };
+    }
     res.json({success: true});
   }
 });
@@ -40,7 +30,7 @@ router.post('/password/request', async (req, res, next) => {
     await mailerService.restorePassword(req.body.email);
     res.json({success:true});
   } catch(e) {
-    console.log(e);
+    log.error(e);
     next(e);
   }
 });
@@ -57,7 +47,7 @@ router.post('/password/update', async (req, res, next) => {
   user.passwordRestoreHash = undefined;
 
   const result = await user.save();
-  console.log(result);
+  log.error(result);
   
   res.json({success:true});
 });
@@ -77,7 +67,7 @@ router.post('/signup', async (req, res, next) => {
     const user = await User.findOne({email:email});
 
     if(user && resend) {
-      const resend = await mailerService.resendConfirmation(user);
+      await mailerService.resendConfirmation(user);
       return res.json({success:true});
     }
 
@@ -85,7 +75,9 @@ router.post('/signup', async (req, res, next) => {
       return res.status(409).json({success: false, message:'Mail address exists'});
 
     await mailerService.signUp(email, password)
-      .catch(err => {throw new Error('Error sending email')});
+      .catch(() => {
+        throw new Error('Error sending email');
+      });
     
     res.json({success: true});
   } catch (err) {

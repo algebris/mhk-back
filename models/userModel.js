@@ -1,6 +1,8 @@
-const mongoose = require('mongoose'),
+const _ = require('lodash'),
+  mongoose = require('mongoose'),
   validator = require('validator'),
-  crypto = require('crypto');
+  crypto = require('crypto'),
+  deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const UserSchema = new mongoose.Schema({
   regHash: String,
@@ -21,7 +23,8 @@ const UserSchema = new mongoose.Schema({
   signupHash: String,
   passwordRestoreHash: String,
   socials: {type: mongoose.Schema.Types.Mixed, default: {}},
-  practice: [{type: mongoose.Schema.Types.ObjectId, ref: 'Practice'}]
+  practice: [{type: mongoose.Schema.Types.ObjectId, ref: 'Practice'}],
+  tasks: [{ type : mongoose.Schema.Types.ObjectId, ref: 'UserTask', deault: [] }],
 }, {
   timestamps: true
 });
@@ -62,5 +65,37 @@ UserSchema.virtual('signupKey')
   .get(function() {
     return this.signupHash;
   });
+
+UserSchema.plugin(deepPopulate, {
+  populate: {
+    'tasks': {
+      select: {status: 1, completedAt: 1, pickedAt: 1, task: 1, _id: 1}
+    },
+    'tasks.task': {
+      select: {_id: 0, __v: 0, updatedAt: 0}
+    }
+  }
+});
+
+UserSchema.methods.filterTasks = function (opts, select) {
+  const {type, offset, count} = opts;
+  select = Array.isArray(select) || false;
+  const filterType = (_.indexOf(['all', 'done', 'undone'], type) !== -1) ? type : 'all';
+
+  let tasks = _.get(this.toJSON(), 'tasks', []);
+  
+  return _.chain(tasks)
+    .map(t => _.merge(t, t.task))
+    .map(t => _.omit(t, 'task'))
+    .filter(t => (filterType == 'done' && t.completedAt) 
+      || (filterType == 'undone' && !t.completedAt) 
+      || (filterType == 'all') 
+      || false)
+    .map(t => _.pick(t, select || _.keys(t)))
+    .slice(offset)
+    .chunk(count)
+    .nth(0)
+    .value() || [];
+};
 
 module.exports = mongoose.model('User', UserSchema);

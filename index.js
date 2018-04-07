@@ -3,12 +3,11 @@ global.APP_DIR = __dirname;
 const express = require('express'),
   _ = require('lodash'),
   conf = require('./config/config'),
-  Routes = require('./routes'),
   bodyParser = require('body-parser'),
   auth = require('./services/auth'),
   bunyan = require('bunyan'),
-  passport = require('passport'),
   log = bunyan.createLogger({name: 'MHK.index'}),
+  passport = require('passport'),
   app = express(),
   cors = require('cors');
 
@@ -28,6 +27,13 @@ app.use(passport.initialize());
 
 // Routes loading
 require('./routes')(app);
+
+// multer = require('multer');
+// const upload = multer({ dest: './uploads/', limits: '100MB' });
+
+// app.post('/zzz', upload.single('avatar'), (req, res, next) => {
+//   res.json(req.file, req.body, req.user);
+// });
 
 // Error handler loading
 require('./services/errors').middleware(app);

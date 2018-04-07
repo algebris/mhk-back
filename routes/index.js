@@ -8,7 +8,7 @@ let routes = requireAll({
 });
 
 module.exports = app => {
-  app.get(`/`, (req, res) => res.json({status: 0, message: 'MHK API alive!'}));
+  app.get('/', (req, res) => res.json({status: 0, message: 'MHK API alive!'}));
   app.use(`${cfg.apiPrefix}/user`, routes.user);
   app.use(`${cfg.apiPrefix}/`, routes.auth);
   
@@ -19,5 +19,5 @@ module.exports = app => {
     app.use(`${cfg.apiPrefix}/auth/facebook`, routes.facebook);
 
   app.use(`${cfg.apiPrefix}/`, routes.practice);
-
+  app.use(`${cfg.apiPrefix}/task`, routes.task);
 };

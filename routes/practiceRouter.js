@@ -1,23 +1,22 @@
 const express = require('express'),
-  config = require('../config/config'),
   _ = require('lodash'),
-  auth = require('../services/auth'),
   passport = require('passport'),
   errors = require('../services/errors'),
   validator = require('validator'),
   User = require('../models/userModel'),
   moment = require('moment'),
-  Practice = require('../models/practiceModel'),
+  router = express.Router(),
+  Practice = require('../models/practiceModel');
 
-TIMER_MODEL = {
+const TIMER_MODEL = {
   value: time => _.toInteger(time), 
   startedAt: date => validator.toDate(date)
-},
+};
 
 // Check that item
 // - Should have similar properties to _model
 // - Pass transformers & validators from _model
-transformTimerRecord = (item, _model) => {
+const transformTimerRecord = (item, _model) => {
   if(_.isEmpty(_model)) return;
   const fields = _.keys(_model);
 
@@ -27,17 +26,17 @@ transformTimerRecord = (item, _model) => {
     .pick(fields)
     .mapValues((val, key) => _model[key](val))
     .value();
-},
+};
 
 // Process array of items, pass them through "transformTimerRecord"
 // Silently remove all null results from set.
-filterTimerData = data => _.transform(data, (acc, item) => {
+const filterTimerData = data => _.transform(data, (acc, item) => {
   const result = transformTimerRecord(item, TIMER_MODEL);
   if(result && _.every(result, val => !!val)) acc.push(result);
-}, []),
+}, []);
 
 // For every record check it's time intersections to existing DB records
-checkTimeBounds = (data, bounds) => _.transform(data, (acc, item) => {
+const checkTimeBounds = (data, bounds) => _.transform(data, (acc, item) => {
   const now = (new Date()).toISOString();
   const matched = moment(item.startedAt).isBetween(bounds.createdAt, now);
   if(matched) acc.push(item);
@@ -62,7 +61,7 @@ router.post('/meditation', (req, res, next) => {
         return next(errors.badRequest('Bad data'));
       }
     } else
-      data = req.body
+      data = req.body;
 
     data = filterTimerData(data);
 
@@ -109,7 +108,7 @@ router.get('/meditation', (req, res, next) => {
       .skip(condition.offset)
       .catch(err => next(err));
       
-      res.json(practice);
+    res.json(practice);
 
   })(req, res, next);
 });
@@ -127,7 +126,7 @@ router.post('/kirtan', (req, res, next) => {
         return next(errors.badRequest('Bad data'));
       }
     } else
-      data = req.body
+      data = req.body;
 
     data = filterTimerData(data);
 
@@ -174,7 +173,7 @@ router.get('/kirtan', (req, res, next) => {
       .skip(condition.offset)
       .catch(err => next(err));
       
-      res.json(practice);
+    res.json(practice);
 
   })(req, res, next);
 });

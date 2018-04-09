@@ -1,16 +1,15 @@
 const express = require('express'),
   config = require('../config/config'),
-  auth = require('../services/auth'),
   passport = require('passport'),
   errors = require('../services/errors'),
   FB = require('fb'),
   Vkontakte = require('vkontakte'),
   User = require('../models/userModel'),
+  router = express.Router(),
   jwt = require('jsonwebtoken');
 
-router = express.Router();
 FB.options({
-    Promise: require('bluebird')
+  Promise: require('bluebird')
 });
 
 router.post('/login', (req, res, next) => {
@@ -88,7 +87,8 @@ router.post('/auth/fb', async (req, res, next) => {
   if(!profile) {
     return next(errors.unauthorized('Bad token'));
   }
-  const email = profile.email
+  
+  const email = profile.email;
   const user = await User.findOne({'socials.fb': profile.id});
 
   if(!user) {

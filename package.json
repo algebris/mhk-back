@@ -4,7 +4,10 @@
   "description": "MHK Backend REST API server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "",
+    "start-dev": "nodemon",
+    "test": "jest",
+    "coverage": "jest --collectCoverageFrom=**/**.js --coverage routes/**"
   },
   "author": "vyacheslav frolov",
   "license": "ISC",
@@ -39,5 +42,9 @@
     "shortid": "^2.2.8",
     "validator": "^9.1.2",
     "vkontakte": "^0.3.0"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "supertest": "^3.0.0"
   }
 }

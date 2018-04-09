@@ -98,6 +98,7 @@ router.get('/',  passport.authenticate('jwt'), async (req, res) => {
   const type = req.query.type || 'all';
   const offset = req.query.offset || 0;
   const count = req.query.count || 10;
+  const ext = _.includes(['false', '0'], req.query.ext) ? false : !!req.query.ext;
 
   // compare if there are new taks for this user
   let liveTasks = await Task.find({expiredAt: { $gte: moment() }}, {_id: true});
@@ -124,7 +125,7 @@ router.get('/',  passport.authenticate('jwt'), async (req, res) => {
   }
 
   let result = await User.deepPopulate(user, 'tasks.task');
-  result = result.filterTasks({type, offset, count});
+  result = result.filterTasks({type, offset, count, ext});
   res.json(result);
 });
 

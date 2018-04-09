@@ -78,7 +78,7 @@ UserSchema.plugin(deepPopulate, {
 });
 
 UserSchema.methods.filterTasks = function (opts, select) {
-  const {type, offset, count} = opts;
+  const {type, offset, count, ext} = opts;
   select = Array.isArray(select) || false;
   const filterType = (_.indexOf(['all', 'done', 'undone'], type) !== -1) ? type : 'all';
 
@@ -87,6 +87,12 @@ UserSchema.methods.filterTasks = function (opts, select) {
   return _.chain(tasks)
     .map(t => _.merge(t, t.task))
     .map(t => _.omit(t, 'task'))
+    .map(t => {
+      let toOmit = ['_id', 'status'];
+      const newObj = {id: t._id, status: t.status};
+      if(!ext) toOmit = toOmit.concat(['pickedAt', 'createdAt']);
+      return _.assign(newObj, _.omit(t, toOmit));
+    })
     .filter(t => (filterType == 'done' && t.completedAt) 
       || (filterType == 'undone' && !t.completedAt) 
       || (filterType == 'all') 

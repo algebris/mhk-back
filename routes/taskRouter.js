@@ -81,7 +81,7 @@ router.post('/', passport.authenticate('jwt'), async (req, res, next) => {
         log.error(`Image file is invalid, check this magic (4bytes from beginning) number: ${magic}`);
         return next(errors.badRequest('Image file is invalid'));
       }
-      taskObj = _.assign(taskObj, {image: `/${UPLOADS_DIR}/${filename}`});
+      taskObj = _.assign(taskObj, {image: `/images/tasks/${filename}`});
     }
     
     // save Task model
@@ -100,7 +100,7 @@ router.get('/',  passport.authenticate('jwt'), async (req, res) => {
   const count = req.query.count || 10;
   const ext = _.includes(['false', '0'], req.query.ext) ? false : !!req.query.ext;
 
-  // compare if there are new taks for this user
+  // check if there any new tasks for this user
   let liveTasks = await Task.find({expiredAt: { $gte: moment() }}, {_id: true});
   let savedTasks = await UserTask.find({user: user._id});
 
@@ -108,7 +108,7 @@ router.get('/',  passport.authenticate('jwt'), async (req, res) => {
     .map('task')
     .map(_.toString)
     .value();
-
+  
   liveTasks = _.chain(liveTasks)
     .map('_id')
     .map(_.toString)
@@ -127,6 +127,25 @@ router.get('/',  passport.authenticate('jwt'), async (req, res) => {
   let result = await User.deepPopulate(user, 'tasks.task');
   result = result.filterTasks({type, offset, count, ext});
   res.json(result);
+});
+
+router.put('/change-status/:taskId',  passport.authenticate('jwt'), async (req, res, next) => {
+  const taskId = req.params.taskId || null;
+  let obj = await User.findOne({email: req.user.email});
+
+  const match = _.chain(obj.tasks)
+    .map(_.toString)
+    .filter(t => t === taskId)
+    .value();
+  
+  if(!_.isEmpty(match))
+    await UserTask.update({_id: taskId, status: 'active'}, {status: 'archived', completedAt: moment()});
+  else
+    return next(errors.badRequest('Invalid task ID'));
+  
+  let task = await UserTask.findById(taskId, 'id status completedAt');
+
+  res.json(task);
 });
 
 module.exports = router;

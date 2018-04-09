@@ -595,7 +595,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://{{server}}:{{port}}/{{prefix}}/task?type=all&offset=0&count=10",
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/task?type=all&offset=0&count=10&ext=true",
 					"protocol": "http",
 					"host": [
 						"{{server}}"
@@ -617,10 +617,43 @@
 						{
 							"key": "count",
 							"value": "10"
+						},
+						{
+							"key": "ext",
+							"value": "true"
 						}
 					]
 				},
 				"description": "Tasks"
+			},
+			"response": []
+		},
+		{
+			"name": "/task/archive",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/task/change-status/5ac89cb94ee8632db13e0ebe",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"task",
+						"change-status",
+						"5ac89cb94ee8632db13e0ebe"
+					]
+				},
+				"description": "Put task to Archives"
 			},
 			"response": []
 		}

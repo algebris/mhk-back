@@ -6,8 +6,25 @@ const _ = require('lodash'),
   validator = require('validator'),
   passport = require('passport'),
   bunyan = require('bunyan'),
+  fs = require('fs-extra'),
+  crypto = require('crypto'),
+  mongoose = require('mongoose'),
+  multer = require('multer'),
+  sanitizer = require('sanitizer'),
   log = bunyan.createLogger({name: 'MHK.userRouter'}),
   router = express.Router();
+
+const UPLOADS_DIR = 'uploads/avatars';
+const MAGIC_NUMBERS = {
+  jpg: 'ffd8ffe0',
+  jpeg: 'ffd8ffe1',
+  png: '89504e47',
+  gif: '47494638'
+};
+
+String.prototype.trim = function () {
+  return this.replace(/^\s+|\s+$/g, '');
+};
 
 router.patch('/password', passport.authenticate('jwt', {session: false}), async (req, res) => {
   const email = req.user.email;
@@ -95,6 +112,67 @@ router.get('/signup', async (req, res, next) => {
     res.json({success:true, message:'Signed up', email: user.email});
   else
     next({message: 'Bad key'});
+});
+
+router.get('/', passport.authenticate('jwt'), async (req, res, next) => {
+  const user = await User.findOne({email: req.user.email}, {profile:1});
+  if(!user) return next({message: 'Bad user\'s JWT'});
+  res.json(user);
+});
+
+router.put('/', passport.authenticate('jwt'), async (req, res, next) => {
+  let userObj = {};
+  const user = await User.findOne({email: req.user.email}, {profile:1});
+  if(!user) return next({message: 'Bad user\'s JWT'});
+
+  const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: '15MB'
+  }).single('avatar');
+
+  upload(req, res, async err => {
+    if(err) log.error(err);
+    if(err) return next(errors.badRequest('Upload file error'));
+
+    if(req.body.fullName) {
+      const fullName = sanitizer.sanitize(req.body.fullName).trim();
+      if(fullName.length >0)
+        userObj.fullName = fullName;
+    }
+    if(req.body.occupation) {
+      const occupation = sanitizer.sanitize(req.body.occupation).trim();
+      if(occupation.length >0)
+        userObj.occupation = occupation;    
+    }
+    if(req.body.city) {
+      const city = sanitizer.sanitize(req.body.city).trim();
+      if(city.length >0)
+        userObj.city = city;    
+    }
+
+    // Check image 
+    if(req.file) {
+      const buffer = req.file.buffer;
+      const magic = buffer.toString('hex', 0, 4);
+      const ext = _.invert(MAGIC_NUMBERS)[magic];
+      let filename = crypto.pseudoRandomBytes(16).toString('hex') + `.${ext}`;
+      
+      if (ext) {
+        try {
+          fs.outputFileSync(`./${UPLOADS_DIR}/${filename}`, buffer, 'binary');
+        } catch(err) {
+          log.error('Error writing file', err);
+          return next(errors.badRequest());
+        }
+      } else {
+        log.error(`Image file is invalid, check this magic (4bytes from beginning) number: ${magic}`);
+        return next(errors.badRequest('Image file is invalid'));
+      }
+      userObj = _.assign(userObj, {avatar: `/images/avatars/${filename}`});
+    }
+    await User.update({_id:user._id}, {profile: userObj});
+    res.json(userObj);
+  });
 });
 
 module.exports = router;

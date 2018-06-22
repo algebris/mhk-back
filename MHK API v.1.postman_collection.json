@@ -711,6 +711,113 @@
 				"description": "Add profile data"
 			},
 			"response": []
+		},
+		{
+			"name": "/params",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"a\":1}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/params",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"params"
+					]
+				},
+				"description": "Receive saved params"
+			},
+			"response": []
+		},
+		{
+			"name": "/params",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"z\":1, \"a\":2, \"b\":3, \"c\":4, \"d\":5}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/params",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"params"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/params?all=true",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "JWT {{jwt}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"a\":1\n}"
+				},
+				"url": {
+					"raw": "http://{{server}}:{{port}}/{{prefix}}/params?all=true",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{prefix}}",
+						"params"
+					],
+					"query": [
+						{
+							"key": "all",
+							"value": "true"
+						}
+					]
+				},
+				"description": "delete appropriate params"
+			},
+			"response": []
 		}
 	]
 }

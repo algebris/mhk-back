@@ -20,4 +20,5 @@ module.exports = app => {
 
   app.use(`${cfg.apiPrefix}/`, routes.practice);
   app.use(`${cfg.apiPrefix}/task`, routes.task);
+  app.use(`${cfg.apiPrefix}/params`, routes.params);
 };

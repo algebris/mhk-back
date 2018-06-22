@@ -30,7 +30,8 @@ const UserSchema = new mongoose.Schema({
     city: String,
     avatar: String,
     occupation: String
-  }
+  },
+  params: { type:mongoose.Schema.Types.Mixed, default: {} }
 }, {
   timestamps: true
 });

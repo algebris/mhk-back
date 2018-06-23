@@ -38,11 +38,10 @@ router.delete('/', passport.authenticate('jwt'), async (req, res, next) => {
     return res.json({});
   }
   // delete keys by incoming object properties
-  if(req.body && _.isObject(req.body)) {
+  if(req.body && _.isArray(req.body)) {
     let params = {};
-    const keysList = _.keys(req.body);
     if(_.isObject(user.params)) {
-      params = _.omit(user.params, keysList);
+      params = _.omit(user.params, req.body);
     }
     await User.update({_id:user._id}, {params});
     res.json(params);

@@ -27,9 +27,12 @@ const UserSchema = new mongoose.Schema({
   tasks: [{ type : mongoose.Schema.Types.ObjectId, ref: 'UserTask', deault: [] }],
   profile: {
     fullName: String,
-    city: String,
     avatar: String,
-    occupation: String
+    locality: {
+      id: String,
+      name: String,
+      address: String
+    }
   },
   params: { type:mongoose.Schema.Types.Mixed, default: {} }
 }, {

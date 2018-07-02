@@ -9,6 +9,9 @@ module.exports = {
   server: {
     port: process.env.SERVER_PORT || 8080
   },
+  googleApi: {
+    key: process.env.GOOGLE_KEY
+  },
   auth: {
     strategies: ['local', 'jwt', 'vkontakte', 'facebook'],
     jwtSecret: process.env.JWT_SECRET || '',

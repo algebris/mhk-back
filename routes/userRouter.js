@@ -1,4 +1,5 @@
 const _ = require('lodash'),
+  Promise = require('bluebird'),
   express = require('express'),
   User = require('../models/userModel'),
   errors = require('../services/errors'),
@@ -8,11 +9,16 @@ const _ = require('lodash'),
   bunyan = require('bunyan'),
   fs = require('fs-extra'),
   crypto = require('crypto'),
-  mongoose = require('mongoose'),
   multer = require('multer'),
   sanitizer = require('sanitizer'),
   log = bunyan.createLogger({name: 'MHK.userRouter'}),
+  geo = require('../services/geo'),
   router = express.Router();
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: '15MB'
+}).single('avatar');
 
 const UPLOADS_DIR = 'uploads/avatars';
 const MAGIC_NUMBERS = {
@@ -121,33 +127,33 @@ router.get('/', passport.authenticate('jwt'), async (req, res, next) => {
 });
 
 router.put('/', passport.authenticate('jwt'), async (req, res, next) => {
-  let userObj = {};
-  const user = await User.findOne({email: req.user.email}, {profile:1});
-  if(!user) return next({message: 'Bad user\'s JWT'});
-
-  const upload = multer({
-    storage: multer.memoryStorage(),
-    limits: '15MB'
-  }).single('avatar');
+  const user = (await User.findOne({email: req.user.email}, {profile:1})).toObject();
+  if(!user) return next(errors.resourceNotFoundError('User not found'));
+  let profile = _.get(user, 'profile', {});
 
   upload(req, res, async err => {
-    if(err) log.error(err);
-    if(err) return next(errors.badRequest('Upload file error'));
+    if(err) 
+      return next(errors.badRequest('Upload file error'));
 
+    // Check fullName field
     if(req.body.fullName) {
       const fullName = sanitizer.sanitize(req.body.fullName).trim();
-      if(fullName.length >0)
-        userObj.fullName = fullName;
+      if(fullName.length > 0)
+        profile.fullName = fullName;
     }
-    if(req.body.occupation) {
-      const occupation = sanitizer.sanitize(req.body.occupation).trim();
-      if(occupation.length >0)
-        userObj.occupation = occupation;    
-    }
-    if(req.body.city) {
-      const city = sanitizer.sanitize(req.body.city).trim();
-      if(city.length >0)
-        userObj.city = city;    
+
+    // Check locality
+    if(req.body.placeId) {
+      try {
+        const Place = new geo.Place(req.body.placeId);
+        await Place.lookup();
+
+        if(Place.name) {
+          profile.locality = _.pick(Place, ['id', 'name', 'address']);
+        }
+      } catch(err) {
+        log.error(err);
+      }
     }
 
     // Check image 
@@ -165,13 +171,16 @@ router.put('/', passport.authenticate('jwt'), async (req, res, next) => {
           return next(errors.badRequest());
         }
       } else {
+        // TODO: Should be changed using native library ImageMagic
         log.error(`Image file is invalid, check this magic (4bytes from beginning) number: ${magic}`);
         return next(errors.badRequest('Image file is invalid'));
       }
-      userObj = _.assign(userObj, {avatar: `/images/avatars/${filename}`});
+
+      profile.avatar = `/images/avatars/${filename}`;
     }
-    await User.update({_id:user._id}, {profile: userObj});
-    res.json(userObj);
+
+    await User.findOneAndUpdate({_id:user._id}, {'$set':{profile}}, {multi:true});
+    res.json(profile);
   });
 });
 

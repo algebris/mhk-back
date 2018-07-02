@@ -1,0 +1,711 @@
+{
+  "ChIJO1fmBTxUzkYRvcQc8HJOKds": {
+        "html_attributions": [],
+        "result": {
+            "address_components": [
+                {
+                    "long_name": "Смоленск",
+                    "short_name": "Смоленск",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "город Смоленск",
+                    "short_name": "г. Смоленск",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Смоленская область",
+                    "short_name": "Смоленская обл.",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                }
+            ],
+            "adr_address": "<span class=\"locality\">Смоленск</span>, <span class=\"region\">Смоленская обл.</span>, <span class=\"country-name\">Россия</span>",
+            "formatted_address": "Смоленск, Смоленская обл., Россия",
+            "geometry": {
+                "location": {
+                    "lat": 54.7903112,
+                    "lng": 32.0503663
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 54.8527259,
+                        "lng": 32.210732
+                    },
+                    "southwest": {
+                        "lat": 54.707542,
+                        "lng": 31.78919
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+            "id": "a0df483315ae8b83e0b955ae6bd4b4aefb5e7d0d",
+            "name": "Смоленск",
+            "photos": [
+                {
+                    "height": 1365,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/101001561862058426912/photos\">Photo World</a>"
+                    ],
+                    "photo_reference": "CmRaAAAAAqwIEUUnSCwf40WJBP1rB4D94qeTvzuPhp4jEyeH4FBEbqT04xdB0Fn9RnA87t9_jEQx3BJv67B10oMKLc9op_6oMo-Qgxvr4WZBZvEta9-VAXq_Y_C6NGBHAuzRg2qJEhAe-5mwWHs6kU4OpjluAIaBGhTs7lsO-Qke8gVMnn4MDk_Fg8veLQ",
+                    "width": 2048
+                },
+                {
+                    "height": 1536,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAAmX6aUkzfLs4K-xU1zHFBPcuIy9c4n_vvK0fsNYWNtDW4Pg3oVQt24x0Anz-8A8vQc1-6zHQFAMhJQr0GUoVaXNSxjj8k6eM5aiG6sZpZUAWbeuXX2cdDopZrOyXscjb8EhAoimsK7gfFnl_RHyofJiQGGhRxgXvWo6UVSth_7f0SYioEQAi58g",
+                    "width": 2048
+                },
+                {
+                    "height": 2048,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAAH6cXaFdR5S0Dql3bjGu0wkj0TKEImY2QNlTdiysvAkAc0PvAIQXrejThKNBnxRXC8Ga3B1_RjFygibxcUSrm6SCMMAjyy-53ic31ClarbF685GchdEWNWywZthPgxR7PEhAOHRMVYyJ-kQhkH5daYGFTGhQrznT52eoN598r6bHd5ce6UQEG9w",
+                    "width": 1536
+                },
+                {
+                    "height": 2048,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAAd4PoULIX4lOqIUPfR25mt6icWxIch1UCcCzkZP3POFwfeFaJ6fWf1cTc8BwJr-XcL1RCbY3Uyo1YTmsv9ob2iY_uZbcdD0ccNXiELD5RJyKEjOFK4BuXdDgFHnvKhKmfEhDRkd242SudqJhIgRWQ8yWCGhQ0TLBEY4hyusXBQZ3TxeGeruuP3g",
+                    "width": 1536
+                },
+                {
+                    "height": 2048,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAAmbGwhSydPmarsRGLqFGvqzpqII6cPr3K7B86iCjeqtdpWeSER_LcJ4kooVPflP53BIQ06wIn8V33Q63bBZJEGk9-Yi0XjOk9QI4FOq0CaNM74dGPS65-hrYOM4p6EyG4EhARefj5EaF7s4yl2NZRVVZmGhR4cHtJuP6Y6_k1QEgBknsPbuqIhQ",
+                    "width": 1536
+                },
+                {
+                    "height": 2048,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAA70zo4tAJqAFMr4Sh8wu_CGuZu6CTmW7E2xWA3VQxG3TJKOXJ7LQnWmuBMp7ZkEdUxaEtrpcOBpl2v_EjIgUtfg0KfTTzTCYZbf2nk05J0MBcqzUFV6G7dXSA1WRGRSsEEhDHa5O4XsPbFX6d4_pmip53GhSLtetP13Y-nwJLYpjZfvhqV5mF_w",
+                    "width": 1536
+                },
+                {
+                    "height": 1536,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAAho8uDiu1pCzP4E04SBiMAIwZET8eG40q3DjNY1m_83-FPVF9hnUUQgxyX1yAUcW9dzYHIjaCba4AhnXrYsRvO9r_OeFsuK_xUbVY5oNl9BQnBSLXqRWGBvSBjyZk92czEhCh5bDuQhJbvLY_PdChtrEyGhR3WseXnOT5biqFfe120oRX7Ur6og",
+                    "width": 2048
+                },
+                {
+                    "height": 1536,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAA-cDj1tJenwbE-cF7a3I6ad_3xPeuEIeUZ3tScYXXPkXGeMJXkGFA0w5UCJ6OSg40Dy_akVdagVJBNwpdRDoDojRyF7m3m-FXsaCGs-64yAzINCh101yGnaoaSPS8Je4oEhDFqMXKisFreO2Vt2zct3h2GhRabyvxzhmnl9i7CaILMM2tf28AAA",
+                    "width": 2048
+                },
+                {
+                    "height": 2048,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAA5FtUmY0upgEf1JNRJTDbz_xIj7L5MUXlEagMMF0CUNLxj2sKCHOUCPFzgigBrjoOTmvoip8VGXf3idQTqaBhLv0_Bz3z9dKXfn-sY1YrY4k1cobPhDET9g253BKmOOPqEhA5WzmM6szf2tCS7czJanFGGhRgZkir6jZ8qOv1YEiu9oRB68Xk_A",
+                    "width": 1536
+                },
+                {
+                    "height": 1536,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/115665731129609521512/photos\">Paul Hort</a>"
+                    ],
+                    "photo_reference": "CmRaAAAA1fBh8Cjs8FZUu5cnpiaslFra0YgCnuwV-F5wAI6r1HQefhobvdmUDhaDYwWU4QI0-694jxrirEF0Zrn5bD6GauyyabnzxioA4gkw_aBnc3rkEFW10y0WRtDx6S3FLd0YEhD-tQJQclW3JqkQgcr8O2M8GhR55rar7i5yGRHVzB7zDzSuJNXqRA",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJO1fmBTxUzkYRvcQc8HJOKds",
+            "reference": "CmRbAAAAXZ13RguqTeeiztKcGP5yEMgqqRvNL7DElSe28WQ6Rlpi7dVIxCSeq8_S3R-mz1rGXYV_SSPpWKqcjxSESh7wSpzWaW0Qvcp6PXF5gIIUcud5GlFMFnxPZKR-cIGQQDowEhDE3NfO-tR_0Ne3V0lPL_WUGhRwPbbzcyYPILlC8al-LFfXTMTqAQ",
+            "scope": "GOOGLE",
+            "types": [
+                "locality",
+                "political"
+            ],
+            "url": "https://maps.google.com/?q=%D0%A1%D0%BC%D0%BE%D0%BB%D0%B5%D0%BD%D1%81%D0%BA,+%D0%A1%D0%BC%D0%BE%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B0%D1%8F+%D0%BE%D0%B1%D0%BB.,+%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F&ftid=0x46ce543c05e6573b:0xdb294e72f01cc4bd",
+            "utc_offset": 180,
+            "vicinity": "Смоленск"
+        },
+        "status": "OK"
+},
+"ChIJl03MkOHl30IRhenT4XMGOps": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Новосибирск",
+                    "short_name": "Новосибирск",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "город Новосибирск",
+                    "short_name": "г. Новосибирск",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Новосибирская область",
+                    "short_name": "Новосибирская обл.",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                }
+            ],
+            "formatted_address": "Новосибирск, Новосибирская обл., Россия",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 55.139807,
+                        "lng": 83.15829389999999
+                    },
+                    "southwest": {
+                        "lat": 54.800147,
+                        "lng": 82.740516
+                    }
+                },
+                "location": {
+                    "lat": 55.00835259999999,
+                    "lng": 82.9357327
+                },
+                "location_type": "APPROXIMATE",
+                "viewport": {
+                    "northeast": {
+                        "lat": 55.139807,
+                        "lng": 83.15829389999999
+                    },
+                    "southwest": {
+                        "lat": 54.800147,
+                        "lng": 82.740516
+                    }
+                }
+            },
+            "place_id": "ChIJl03MkOHl30IRhenT4XMGOps",
+            "types": [
+                "locality",
+                "political"
+            ]
+        }
+    ],
+    "status": "OK"
+},
+"ChIJJQMqy2UJ4EIRLlTJkaXKslM": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Международный аэропорт Новосибирск (Толмачево)",
+                    "short_name": "Международный аэропорт Новосибирск (Толмачево)",
+                    "types": [
+                        "airport",
+                        "establishment",
+                        "point_of_interest"
+                    ]
+                },
+                {
+                    "long_name": "Обь",
+                    "short_name": "Обь",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Новосибирская область",
+                    "short_name": "Новосибирская обл.",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "633104",
+                    "short_name": "633104",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "Международный аэропорт Новосибирск (Толмачево) (OVB), Обь, Новосибирская обл., Россия, 633104",
+            "geometry": {
+                "location": {
+                    "lat": 55.01135410000001,
+                    "lng": 82.652163
+                },
+                "location_type": "GEOMETRIC_CENTER",
+                "viewport": {
+                    "northeast": {
+                        "lat": 55.01270308029151,
+                        "lng": 82.65351198029151
+                    },
+                    "southwest": {
+                        "lat": 55.01000511970851,
+                        "lng": 82.65081401970849
+                    }
+                }
+            },
+            "place_id": "ChIJJQMqy2UJ4EIRLlTJkaXKslM",
+            "types": [
+                "airport",
+                "establishment",
+                "point_of_interest"
+            ]
+        }
+    ],
+    "status": "OK"
+},
+"ChIJA2g4NuEAIEMRyU1zvXvRQNo": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Колывань",
+                    "short_name": "Колывань",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Колыванский район",
+                    "short_name": "Колыванский р-н",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Новосибирская область",
+                    "short_name": "Новосибирская обл.",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "633162",
+                    "short_name": "633162",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "Колывань, Новосибирская обл., Россия, 633162",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 55.324984,
+                        "lng": 82.76818709999999
+                    },
+                    "southwest": {
+                        "lat": 55.283717,
+                        "lng": 82.69735489999999
+                    }
+                },
+                "location": {
+                    "lat": 55.3034398,
+                    "lng": 82.73647799999999
+                },
+                "location_type": "APPROXIMATE",
+                "viewport": {
+                    "northeast": {
+                        "lat": 55.324984,
+                        "lng": 82.76818709999999
+                    },
+                    "southwest": {
+                        "lat": 55.283717,
+                        "lng": 82.69735489999999
+                    }
+                }
+            },
+            "place_id": "ChIJA2g4NuEAIEMRyU1zvXvRQNo",
+            "types": [
+                "locality",
+                "political"
+            ]
+        }
+    ],
+    "status": "OK"
+},
+"ChIJYRmxvsf84UIRRDPBFX3MQiM": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Чулым",
+                    "short_name": "Чулым",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Чулымский район",
+                    "short_name": "Чулымский р-н",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Новосибирская область",
+                    "short_name": "Новосибирская обл.",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                }
+            ],
+            "formatted_address": "Чулым, Новосибирская обл., Россия",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 55.123751,
+                        "lng": 80.99599689999999
+                    },
+                    "southwest": {
+                        "lat": 55.067015,
+                        "lng": 80.925353
+                    }
+                },
+                "location": {
+                    "lat": 55.1015144,
+                    "lng": 80.96987519999999
+                },
+                "location_type": "APPROXIMATE",
+                "viewport": {
+                    "northeast": {
+                        "lat": 55.123751,
+                        "lng": 80.99599689999999
+                    },
+                    "southwest": {
+                        "lat": 55.067015,
+                        "lng": 80.925353
+                    }
+                }
+            },
+            "place_id": "ChIJYRmxvsf84UIRRDPBFX3MQiM",
+            "types": [
+                "locality",
+                "political"
+            ]
+        }
+    ],
+    "status": "OK"
+},
+"ChIJI0SDEeHU9UAR-F1daoZhb24": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Сочи",
+                    "short_name": "Сочи",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "город-курорт Сочи",
+                    "short_name": "город-курорт Сочи",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Краснодарский край",
+                    "short_name": "Краснодарский край",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                }
+            ],
+            "formatted_address": "Сочи, Краснодарский край, Россия",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 43.658735,
+                        "lng": 39.789561
+                    },
+                    "southwest": {
+                        "lat": 43.544708,
+                        "lng": 39.6606969
+                    }
+                },
+                "location": {
+                    "lat": 43.60280789999999,
+                    "lng": 39.7341543
+                },
+                "location_type": "APPROXIMATE",
+                "viewport": {
+                    "northeast": {
+                        "lat": 43.658735,
+                        "lng": 39.789561
+                    },
+                    "southwest": {
+                        "lat": 43.544708,
+                        "lng": 39.6606969
+                    }
+                }
+            },
+            "place_id": "ChIJI0SDEeHU9UAR-F1daoZhb24",
+            "types": [
+                "locality",
+                "political"
+            ]
+        }
+    ],
+    "status": "OK"
+},
+"ChIJe6bhY3gZ9EARPM0D4BbbxzE": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Лазаревское",
+                    "short_name": "Лазаревское",
+                    "types": [
+                        "political",
+                        "sublocality",
+                        "sublocality_level_1"
+                    ]
+                },
+                {
+                    "long_name": "Большой Сочи",
+                    "short_name": "Сочи",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Лазаревский район",
+                    "short_name": "Лазаревский р-н",
+                    "types": [
+                        "administrative_area_level_3",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "город-курорт Сочи",
+                    "short_name": "город-курорт Сочи",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Краснодарский край",
+                    "short_name": "Краснодарский край",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "354200",
+                    "short_name": "354200",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "Лазаревское, Сочи, Краснодарский край, Россия, 354200",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 43.939915,
+                        "lng": 39.3597599
+                    },
+                    "southwest": {
+                        "lat": 43.890754,
+                        "lng": 39.298715
+                    }
+                },
+                "location": {
+                    "lat": 43.9150254,
+                    "lng": 39.3333917
+                },
+                "location_type": "APPROXIMATE",
+                "viewport": {
+                    "northeast": {
+                        "lat": 43.939915,
+                        "lng": 39.3597599
+                    },
+                    "southwest": {
+                        "lat": 43.890754,
+                        "lng": 39.298715
+                    }
+                }
+            },
+            "place_id": "ChIJe6bhY3gZ9EARPM0D4BbbxzE",
+            "types": [
+                "political",
+                "sublocality",
+                "sublocality_level_1"
+            ]
+        }
+    ],
+    "status": "OK"
+},
+"ChIJ21gpS4xh8UARBjqGYS17v5Y": {
+    "results": [
+        {
+            "address_components": [
+                {
+                    "long_name": "Джубга",
+                    "short_name": "Джубга",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Туапсинский район",
+                    "short_name": "Туапсинский р-н",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Краснодарский край",
+                    "short_name": "Краснодарский край",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Россия",
+                    "short_name": "RU",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "352844",
+                    "short_name": "352844",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "Джубга, Краснодарский край, Россия, 352844",
+            "geometry": {
+                "bounds": {
+                    "northeast": {
+                        "lat": 44.352221,
+                        "lng": 38.7174409
+                    },
+                    "southwest": {
+                        "lat": 44.3048091,
+                        "lng": 38.6882831
+                    }
+                },
+                "location": {
+                    "lat": 44.3264928,
+                    "lng": 38.7015857
+                },
+                "location_type": "APPROXIMATE",
+                "viewport": {
+                    "northeast": {
+                        "lat": 44.352221,
+                        "lng": 38.7174409
+                    },
+                    "southwest": {
+                        "lat": 44.3048091,
+                        "lng": 38.6882831
+                    }
+                }
+            },
+            "place_id": "ChIJ21gpS4xh8UARBjqGYS17v5Y",
+            "types": [
+                "locality",
+                "political"
+            ]
+        }
+    ],
+    "status": "OK"
+}
+}
